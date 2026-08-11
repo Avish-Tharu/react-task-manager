@@ -1,19 +1,19 @@
-function TaskStats() {
+function TaskStats({ total, completed, pending }) {
   return (
     <div className="stats-container">
       <div className="stat-card">
         <h3>Total Tasks</h3>
-        <p>12</p>
+        <p>{total}</p>
       </div>
 
       <div className="stat-card">
         <h3>Completed</h3>
-        <p>5</p>
+        <p>{completed}</p>
       </div>
 
       <div className="stat-card">
         <h3>Pending</h3>
-        <p>7</p>
+        <p>{pending}</p>
       </div>
     </div>
   );
