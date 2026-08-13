@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import TaskStats from "./components/TaskStats";
 import TaskCard from "./components/TaskCard";
+import AddTaskForm from "./components/AddTaskForm";
 
 function App() {
   const [tasks, setTasks] = useState([
@@ -27,6 +28,17 @@ function App() {
     },
   ]);
 
+  const [showAddForm, setShowAddForm] = useState(false);
+
+  const handleAddTask = (newTask) => {
+    setTasks((currentTasks) => [
+      ...currentTasks,
+      newTask,
+    ]);
+
+    setShowAddForm(false);
+  };
+
   const totalTasks = tasks.length;
 
   const completedTasks = tasks.filter(
@@ -39,17 +51,33 @@ function App() {
 
   return (
     <div className="app">
+
       <Navbar />
 
       <div className="main-layout">
+
         <Sidebar />
 
         <main className="dashboard">
-          <h1>Dashboard</h1>
 
-          <p className="welcome-text">
-            Manage your tasks efficiently.
-          </p>
+          <div className="dashboard-header">
+
+            <div>
+              <h1>Dashboard</h1>
+
+              <p className="welcome-text">
+                Manage your tasks efficiently.
+              </p>
+            </div>
+
+            <button
+              className="add-task-button"
+              onClick={() => setShowAddForm(true)}
+            >
+              + Add Task
+            </button>
+
+          </div>
 
           <TaskStats
             total={totalTasks}
@@ -57,10 +85,19 @@ function App() {
             pending={pendingTasks}
           />
 
+          {showAddForm && (
+            <AddTaskForm
+              onAddTask={handleAddTask}
+              onCancel={() => setShowAddForm(false)}
+            />
+          )}
+
           <section className="tasks-section">
+
             <h2>Recent Tasks</h2>
 
             <div className="tasks-list">
+
               {tasks.map((task) => (
                 <TaskCard
                   key={task.id}
@@ -69,10 +106,15 @@ function App() {
                   status={task.status}
                 />
               ))}
+
             </div>
+
           </section>
+
         </main>
+
       </div>
+
     </div>
   );
 }

@@ -142,3 +142,149 @@ body {
   background: #FEF3C7;
   color: #92400E;
 }
+/* ============================= */
+/* DAY 4 - ADD TASK FORM */
+/* ============================= */
+
+/* Dashboard Header */
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 30px;
+}
+
+/* Add Task Button */
+
+.add-task-button {
+  background: #4F46E5;
+  color: #FFFFFF;
+  border: none;
+  padding: 11px 18px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.add-task-button:hover {
+  background: #4338CA;
+}
+
+/* Add Task Form */
+
+.form-container {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 25px;
+  margin-bottom: 30px;
+  max-width: 700px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+}
+
+/* Form Header */
+
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.form-header h2 {
+  font-size: 22px;
+  margin: 0;
+}
+
+/* Close Button */
+
+.close-button {
+  border: none;
+  background: transparent;
+  font-size: 28px;
+  color: #64748B;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  color: #0F172A;
+}
+
+/* Form Fields */
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #0F172A;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid #CBD5E1;
+  border-radius: 7px;
+  font-size: 15px;
+  font-family: inherit;
+  outline: none;
+  background: #FFFFFF;
+  box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: #4F46E5;
+  box-shadow: 0 0 0 3px #EEF2FF;
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+/* Form Buttons */
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.cancel-button {
+  background: #FFFFFF;
+  color: #475569;
+  border: 1px solid #CBD5E1;
+  padding: 10px 18px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.cancel-button:hover {
+  background: #F8FAFC;
+}
+
+.add-button {
+  background: #4F46E5;
+  color: #FFFFFF;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.add-button:hover {
+  background: #4338CA;
+}
