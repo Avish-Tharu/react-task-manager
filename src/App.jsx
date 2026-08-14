@@ -5,6 +5,7 @@ import Sidebar from "./components/Sidebar";
 import TaskStats from "./components/TaskStats";
 import TaskCard from "./components/TaskCard";
 import AddTaskForm from "./components/AddTaskForm";
+import EditTaskForm from "./components/EditTaskForm";
 
 function App() {
   const [tasks, setTasks] = useState([
@@ -30,6 +31,8 @@ function App() {
 
   const [showAddForm, setShowAddForm] = useState(false);
 
+  const [editingTask, setEditingTask] = useState(null);
+
   const handleAddTask = (newTask) => {
     setTasks((currentTasks) => [
       ...currentTasks,
@@ -37,6 +40,38 @@ function App() {
     ]);
 
     setShowAddForm(false);
+  };
+
+  const handleEditTask = (task) => {
+    setEditingTask(task);
+  };
+
+  const handleUpdateTask = (updatedTask) => {
+    setTasks((currentTasks) =>
+      currentTasks.map((task) =>
+        task.id === updatedTask.id
+          ? updatedTask
+          : task
+      )
+    );
+
+    setEditingTask(null);
+  };
+
+  const handleDeleteTask = (taskId) => {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this task?"
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    setTasks((currentTasks) =>
+      currentTasks.filter(
+        (task) => task.id !== taskId
+      )
+    );
   };
 
   const totalTasks = tasks.length;
@@ -92,6 +127,14 @@ function App() {
             />
           )}
 
+          {editingTask && (
+            <EditTaskForm
+              task={editingTask}
+              onUpdateTask={handleUpdateTask}
+              onCancel={() => setEditingTask(null)}
+            />
+          )}
+
           <section className="tasks-section">
 
             <h2>Recent Tasks</h2>
@@ -101,9 +144,9 @@ function App() {
               {tasks.map((task) => (
                 <TaskCard
                   key={task.id}
-                  title={task.title}
-                  description={task.description}
-                  status={task.status}
+                  task={task}
+                  onEdit={handleEditTask}
+                  onDelete={handleDeleteTask}
                 />
               ))}
 
