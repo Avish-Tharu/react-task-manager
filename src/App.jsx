@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
@@ -8,6 +8,11 @@ import AddTaskForm from "./components/AddTaskForm";
 import EditTaskForm from "./components/EditTaskForm";
 
 function App() {
+    const [darkMode, setDarkMode] = useState(() => {
+    const savedTheme = localStorage.getItem("task-manager-theme");
+
+    return savedTheme === "dark";
+  });
   const [tasks, setTasks] = useState([
     {
       id: 1,
@@ -38,6 +43,23 @@ function App() {
 
   // DAY 6 - Filter state
   const [statusFilter, setStatusFilter] = useState("All");
+    useEffect(() => {
+    if (darkMode) {
+      document.body.classList.add("dark-mode");
+
+      localStorage.setItem(
+        "task-manager-theme",
+        "dark"
+      );
+    } else {
+      document.body.classList.remove("dark-mode");
+
+      localStorage.setItem(
+        "task-manager-theme",
+        "light"
+      );
+    }
+  }, [darkMode]);
 
   const handleAddTask = (newTask) => {
     setTasks((currentTasks) => [
@@ -111,7 +133,12 @@ function App() {
   return (
     <div className="app">
 
-      <Navbar />
+      <Navbar
+  darkMode={darkMode}
+  onToggleDarkMode={() =>
+    setDarkMode((currentMode) => !currentMode)
+  }
+/>
 
       <div className="main-layout">
 
