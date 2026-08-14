@@ -33,6 +33,12 @@ function App() {
 
   const [editingTask, setEditingTask] = useState(null);
 
+  // DAY 6 - Search state
+  const [searchTerm, setSearchTerm] = useState("");
+
+  // DAY 6 - Filter state
+  const [statusFilter, setStatusFilter] = useState("All");
+
   const handleAddTask = (newTask) => {
     setTasks((currentTasks) => [
       ...currentTasks,
@@ -73,6 +79,24 @@ function App() {
       )
     );
   };
+
+  // DAY 6 - Search + Filter
+  const filteredTasks = tasks.filter((task) => {
+
+    const matchesSearch =
+      task.title
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase()) ||
+      task.description
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+
+    const matchesStatus =
+      statusFilter === "All" ||
+      task.status === statusFilter;
+
+    return matchesSearch && matchesStatus;
+  });
 
   const totalTasks = tasks.length;
 
@@ -137,18 +161,87 @@ function App() {
 
           <section className="tasks-section">
 
-            <h2>Recent Tasks</h2>
+            <div className="tasks-section-header">
+
+              <div>
+                <h2>Recent Tasks</h2>
+
+                <p className="task-count">
+                  Showing {filteredTasks.length} of {totalTasks} tasks
+                </p>
+              </div>
+
+              <div className="task-controls">
+
+                <div className="search-box">
+
+                  <span className="search-icon">
+                    🔍
+                  </span>
+
+                  <input
+                    type="text"
+                    placeholder="Search tasks..."
+                    value={searchTerm}
+                    onChange={(event) =>
+                      setSearchTerm(event.target.value)
+                    }
+                  />
+
+                </div>
+
+                <select
+                  className="status-filter"
+                  value={statusFilter}
+                  onChange={(event) =>
+                    setStatusFilter(event.target.value)
+                  }
+                >
+                  <option value="All">
+                    All Tasks
+                  </option>
+
+                  <option value="Pending">
+                    Pending
+                  </option>
+
+                  <option value="Completed">
+                    Completed
+                  </option>
+                </select>
+
+              </div>
+
+            </div>
 
             <div className="tasks-list">
 
-              {tasks.map((task) => (
-                <TaskCard
-                  key={task.id}
-                  task={task}
-                  onEdit={handleEditTask}
-                  onDelete={handleDeleteTask}
-                />
-              ))}
+              {filteredTasks.length > 0 ? (
+
+                filteredTasks.map((task) => (
+                  <TaskCard
+                    key={task.id}
+                    task={task}
+                    onEdit={handleEditTask}
+                    onDelete={handleDeleteTask}
+                  />
+                ))
+
+              ) : (
+
+                <div className="no-tasks">
+                  <div className="no-tasks-icon">
+                    🔍
+                  </div>
+
+                  <h3>No tasks found</h3>
+
+                  <p>
+                    Try changing your search or filter.
+                  </p>
+                </div>
+
+              )}
 
             </div>
 
