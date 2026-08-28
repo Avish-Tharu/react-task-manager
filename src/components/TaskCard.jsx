@@ -2,9 +2,27 @@ function TaskCard({
   task,
   onEdit,
   onDelete,
+  onDropTask,
 }) {
+  const handleDragStart = (event) => {
+    event.dataTransfer.setData(
+      "taskId",
+      task.id.toString()
+    );
+
+    event.dataTransfer.effectAllowed = "move";
+  };
+
   return (
-    <div className="task-card">
+    <div
+      className="task-card"
+      draggable="true"
+      onDragStart={handleDragStart}
+    >
+
+      <div className="drag-handle">
+        ⋮⋮
+      </div>
 
       <div className="task-content">
 

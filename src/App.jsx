@@ -101,7 +101,19 @@ function App() {
       )
     );
   };
-
+  // DAY 8 - Drag and Drop
+  const handleDropTask = (taskId, newStatus) => {
+    setTasks((currentTasks) =>
+      currentTasks.map((task) =>
+        task.id === taskId
+          ? {
+              ...task,
+              status: newStatus,
+            }
+          : task
+      )
+    );
+  };
   // DAY 6 - Search + Filter
   const filteredTasks = tasks.filter((task) => {
 
@@ -240,18 +252,73 @@ function App() {
               </div>
 
             </div>
+<div className="drop-zones">
 
+  <div
+    className="drop-zone pending-zone"
+    onDragOver={(event) => {
+      event.preventDefault();
+      event.dataTransfer.dropEffect = "move";
+    }}
+    onDrop={(event) => {
+      event.preventDefault();
+
+      const taskId = Number(
+        event.dataTransfer.getData("taskId")
+      );
+
+      handleDropTask(taskId, "Pending");
+    }}
+  >
+    <span className="drop-zone-icon">
+      📋
+    </span>
+
+    <div>
+      <strong>Pending</strong>
+      <p>Drop task here</p>
+    </div>
+  </div>
+
+  <div
+    className="drop-zone completed-zone"
+    onDragOver={(event) => {
+      event.preventDefault();
+      event.dataTransfer.dropEffect = "move";
+    }}
+    onDrop={(event) => {
+      event.preventDefault();
+
+      const taskId = Number(
+        event.dataTransfer.getData("taskId")
+      );
+
+      handleDropTask(taskId, "Completed");
+    }}
+  >
+    <span className="drop-zone-icon">
+      ✅
+    </span>
+
+    <div>
+      <strong>Completed</strong>
+      <p>Drop task here</p>
+    </div>
+  </div>
+
+</div>
             <div className="tasks-list">
 
               {filteredTasks.length > 0 ? (
 
                 filteredTasks.map((task) => (
                   <TaskCard
-                    key={task.id}
-                    task={task}
-                    onEdit={handleEditTask}
-                    onDelete={handleDeleteTask}
-                  />
+  key={task.id}
+  task={task}
+  onEdit={handleEditTask}
+  onDelete={handleDeleteTask}
+  onDropTask={handleDropTask}
+/>
                 ))
 
               ) : (

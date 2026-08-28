@@ -698,3 +698,101 @@ body.dark-mode .close-button {
 body.dark-mode .close-button:hover {
   color: #F8FAFC;
 }
+/* ============================= */
+/* DAY 8 - DRAG & DROP */
+/* ============================= */
+
+/* Drop Zones */
+
+.drop-zones {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.drop-zone {
+  min-height: 75px;
+  padding: 15px 18px;
+  border: 2px dashed #CBD5E1;
+  border-radius: 12px;
+  background: #F8FAFC;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.2s ease;
+}
+
+.drop-zone:hover {
+  border-color: #6366F1;
+  background: #EEF2FF;
+  transform: translateY(-1px);
+}
+
+.drop-zone-icon {
+  font-size: 25px;
+}
+
+.drop-zone strong {
+  display: block;
+  color: #0F172A;
+  font-size: 14px;
+  margin-bottom: 3px;
+}
+
+.drop-zone p {
+  margin: 0;
+  color: #64748B;
+  font-size: 12px;
+}
+
+/* Drag Handle */
+
+.drag-handle {
+  color: #94A3B8;
+  font-size: 18px;
+  letter-spacing: -4px;
+  cursor: grab;
+  user-select: none;
+  padding-right: 5px;
+}
+
+.task-card:active .drag-handle {
+  cursor: grabbing;
+}
+
+/* Draggable Task */
+
+.task-card[draggable="true"] {
+  cursor: grab;
+}
+
+.task-card[draggable="true"]:active {
+  cursor: grabbing;
+  opacity: 0.65;
+  transform: scale(0.99);
+}
+
+/* Dark Mode - Drop Zones */
+
+body.dark-mode .drop-zone {
+  background: #111827;
+  border-color: #334155;
+}
+
+body.dark-mode .drop-zone:hover {
+  background: #1E293B;
+  border-color: #6366F1;
+}
+
+body.dark-mode .drop-zone strong {
+  color: #F8FAFC;
+}
+
+body.dark-mode .drop-zone p {
+  color: #94A3B8;
+}
+
+body.dark-mode .drag-handle {
+  color: #64748B;
+}
