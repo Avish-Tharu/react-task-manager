@@ -1,6 +1,7 @@
 function Navbar({
   darkMode,
   onToggleDarkMode,
+  onLogout,
 }) {
   return (
     <nav className="navbar">
@@ -39,7 +40,12 @@ function Navbar({
           </span>
 
         </div>
-
+<button
+  className="logout-button"
+  onClick={onLogout}
+>
+  Logout
+</button>
       </div>
 
     </nav>

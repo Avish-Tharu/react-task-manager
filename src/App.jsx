@@ -6,44 +6,32 @@ import TaskStats from "./components/TaskStats";
 import TaskCard from "./components/TaskCard";
 import AddTaskForm from "./components/AddTaskForm";
 import EditTaskForm from "./components/EditTaskForm";
+import LoginPage from "./pages/LoginPage";
 
 function App() {
-    const [darkMode, setDarkMode] = useState(() => {
-    const savedTheme = localStorage.getItem("task-manager-theme");
+  // ================================
+  // DAY 9 - LOGIN STATE
+  // ================================
+
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    return (
+      localStorage.getItem("task-manager-auth") === "true"
+    );
+  });
+
+  // ================================
+  // DARK MODE
+  // ================================
+
+  const [darkMode, setDarkMode] = useState(() => {
+    const savedTheme = localStorage.getItem(
+      "task-manager-theme"
+    );
 
     return savedTheme === "dark";
   });
-  const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      title: "Complete React Assignment",
-      description: "Build the Task Manager application",
-      status: "Pending",
-    },
-    {
-      id: 2,
-      title: "Study JavaScript",
-      description: "Review JavaScript array methods",
-      status: "Completed",
-    },
-    {
-      id: 3,
-      title: "Update GitHub",
-      description: "Push the latest project changes",
-      status: "Pending",
-    },
-  ]);
 
-  const [showAddForm, setShowAddForm] = useState(false);
-
-  const [editingTask, setEditingTask] = useState(null);
-
-  // DAY 6 - Search state
-  const [searchTerm, setSearchTerm] = useState("");
-
-  // DAY 6 - Filter state
-  const [statusFilter, setStatusFilter] = useState("All");
-    useEffect(() => {
+  useEffect(() => {
     if (darkMode) {
       document.body.classList.add("dark-mode");
 
@@ -61,6 +49,58 @@ function App() {
     }
   }, [darkMode]);
 
+  // ================================
+  // TASK STATE
+  // ================================
+
+  const [tasks, setTasks] = useState([
+    {
+      id: 1,
+      title: "Complete React Assignment",
+      description:
+        "Build the Task Manager application",
+      status: "Pending",
+    },
+    {
+      id: 2,
+      title: "Study JavaScript",
+      description:
+        "Review JavaScript array methods",
+      status: "Completed",
+    },
+    {
+      id: 3,
+      title: "Update GitHub",
+      description:
+        "Push the latest project changes",
+      status: "Pending",
+    },
+  ]);
+
+  // ================================
+  // FORM STATES
+  // ================================
+
+  const [showAddForm, setShowAddForm] =
+    useState(false);
+
+  const [editingTask, setEditingTask] =
+    useState(null);
+
+  // ================================
+  // SEARCH + FILTER
+  // ================================
+
+  const [searchTerm, setSearchTerm] =
+    useState("");
+
+  const [statusFilter, setStatusFilter] =
+    useState("All");
+
+  // ================================
+  // CREATE TASK
+  // ================================
+
   const handleAddTask = (newTask) => {
     setTasks((currentTasks) => [
       ...currentTasks,
@@ -70,9 +110,17 @@ function App() {
     setShowAddForm(false);
   };
 
+  // ================================
+  // EDIT TASK
+  // ================================
+
   const handleEditTask = (task) => {
     setEditingTask(task);
   };
+
+  // ================================
+  // UPDATE TASK
+  // ================================
 
   const handleUpdateTask = (updatedTask) => {
     setTasks((currentTasks) =>
@@ -85,6 +133,10 @@ function App() {
 
     setEditingTask(null);
   };
+
+  // ================================
+  // DELETE TASK
+  // ================================
 
   const handleDeleteTask = (taskId) => {
     const confirmed = window.confirm(
@@ -101,8 +153,15 @@ function App() {
       )
     );
   };
-  // DAY 8 - Drag and Drop
-  const handleDropTask = (taskId, newStatus) => {
+
+  // ================================
+  // DAY 8 - DRAG AND DROP
+  // ================================
+
+  const handleDropTask = (
+    taskId,
+    newStatus
+  ) => {
     setTasks((currentTasks) =>
       currentTasks.map((task) =>
         task.id === taskId
@@ -114,43 +173,115 @@ function App() {
       )
     );
   };
-  // DAY 6 - Search + Filter
-  const filteredTasks = tasks.filter((task) => {
 
+  // ================================
+  // DAY 9 - LOGIN
+  // ================================
+
+  const handleLogin = (user) => {
+    localStorage.setItem(
+      "task-manager-auth",
+      "true"
+    );
+
+    localStorage.setItem(
+      "task-manager-user",
+      JSON.stringify(user)
+    );
+
+    setIsLoggedIn(true);
+  };
+
+  // ================================
+  // DAY 9 - LOGOUT
+  // ================================
+
+  const handleLogout = () => {
+    localStorage.removeItem(
+      "task-manager-auth"
+    );
+
+    localStorage.removeItem(
+      "task-manager-user"
+    );
+
+    setIsLoggedIn(false);
+  };
+
+  // ================================
+  // SEARCH + FILTER
+  // ================================
+
+  const filteredTasks = tasks.filter((task) => {
     const matchesSearch =
       task.title
         .toLowerCase()
-        .includes(searchTerm.toLowerCase()) ||
+        .includes(
+          searchTerm.toLowerCase()
+        ) ||
       task.description
         .toLowerCase()
-        .includes(searchTerm.toLowerCase());
+        .includes(
+          searchTerm.toLowerCase()
+        );
 
     const matchesStatus =
       statusFilter === "All" ||
       task.status === statusFilter;
 
-    return matchesSearch && matchesStatus;
+    return (
+      matchesSearch &&
+      matchesStatus
+    );
   });
+
+  // ================================
+  // TASK STATISTICS
+  // ================================
 
   const totalTasks = tasks.length;
 
-  const completedTasks = tasks.filter(
-    (task) => task.status === "Completed"
-  ).length;
+  const completedTasks =
+    tasks.filter(
+      (task) =>
+        task.status === "Completed"
+    ).length;
 
-  const pendingTasks = tasks.filter(
-    (task) => task.status === "Pending"
-  ).length;
+  const pendingTasks =
+    tasks.filter(
+      (task) =>
+        task.status === "Pending"
+    ).length;
+
+  // ================================
+  // LOGIN PAGE
+  // ================================
+
+  if (!isLoggedIn) {
+    return (
+      <LoginPage
+        onLogin={handleLogin}
+      />
+    );
+  }
+
+  // ================================
+  // DASHBOARD
+  // ================================
 
   return (
     <div className="app">
 
       <Navbar
-  darkMode={darkMode}
-  onToggleDarkMode={() =>
-    setDarkMode((currentMode) => !currentMode)
-  }
-/>
+        darkMode={darkMode}
+        onToggleDarkMode={() =>
+          setDarkMode(
+            (currentMode) =>
+              !currentMode
+          )
+        }
+        onLogout={handleLogout}
+      />
 
       <div className="main-layout">
 
@@ -158,24 +289,32 @@ function App() {
 
         <main className="dashboard">
 
+          {/* Dashboard Header */}
+
           <div className="dashboard-header">
 
             <div>
+
               <h1>Dashboard</h1>
 
               <p className="welcome-text">
                 Manage your tasks efficiently.
               </p>
+
             </div>
 
             <button
               className="add-task-button"
-              onClick={() => setShowAddForm(true)}
+              onClick={() =>
+                setShowAddForm(true)
+              }
             >
               + Add Task
             </button>
 
           </div>
+
+          {/* Statistics */}
 
           <TaskStats
             total={totalTasks}
@@ -183,32 +322,52 @@ function App() {
             pending={pendingTasks}
           />
 
+          {/* Add Task Form */}
+
           {showAddForm && (
             <AddTaskForm
               onAddTask={handleAddTask}
-              onCancel={() => setShowAddForm(false)}
+              onCancel={() =>
+                setShowAddForm(false)
+              }
             />
           )}
+
+          {/* Edit Task Form */}
 
           {editingTask && (
             <EditTaskForm
               task={editingTask}
-              onUpdateTask={handleUpdateTask}
-              onCancel={() => setEditingTask(null)}
+              onUpdateTask={
+                handleUpdateTask
+              }
+              onCancel={() =>
+                setEditingTask(null)
+              }
             />
           )}
 
+          {/* Tasks Section */}
+
           <section className="tasks-section">
+
+            {/* Section Header */}
 
             <div className="tasks-section-header">
 
               <div>
+
                 <h2>Recent Tasks</h2>
 
                 <p className="task-count">
-                  Showing {filteredTasks.length} of {totalTasks} tasks
+                  Showing{" "}
+                  {filteredTasks.length}{" "}
+                  of {totalTasks} tasks
                 </p>
+
               </div>
+
+              {/* Search + Filter */}
 
               <div className="task-controls">
 
@@ -223,7 +382,9 @@ function App() {
                     placeholder="Search tasks..."
                     value={searchTerm}
                     onChange={(event) =>
-                      setSearchTerm(event.target.value)
+                      setSearchTerm(
+                        event.target.value
+                      )
                     }
                   />
 
@@ -233,9 +394,12 @@ function App() {
                   className="status-filter"
                   value={statusFilter}
                   onChange={(event) =>
-                    setStatusFilter(event.target.value)
+                    setStatusFilter(
+                      event.target.value
+                    )
                   }
                 >
+
                   <option value="All">
                     All Tasks
                   </option>
@@ -247,92 +411,145 @@ function App() {
                   <option value="Completed">
                     Completed
                   </option>
+
                 </select>
 
               </div>
 
             </div>
-<div className="drop-zones">
 
-  <div
-    className="drop-zone pending-zone"
-    onDragOver={(event) => {
-      event.preventDefault();
-      event.dataTransfer.dropEffect = "move";
-    }}
-    onDrop={(event) => {
-      event.preventDefault();
+            {/* DAY 8 - DROP ZONES */}
 
-      const taskId = Number(
-        event.dataTransfer.getData("taskId")
-      );
+            <div className="drop-zones">
 
-      handleDropTask(taskId, "Pending");
-    }}
-  >
-    <span className="drop-zone-icon">
-      📋
-    </span>
+              {/* Pending Drop Zone */}
 
-    <div>
-      <strong>Pending</strong>
-      <p>Drop task here</p>
-    </div>
-  </div>
+              <div
+                className="drop-zone pending-zone"
+                onDragOver={(event) => {
+                  event.preventDefault();
 
-  <div
-    className="drop-zone completed-zone"
-    onDragOver={(event) => {
-      event.preventDefault();
-      event.dataTransfer.dropEffect = "move";
-    }}
-    onDrop={(event) => {
-      event.preventDefault();
+                  event.dataTransfer.dropEffect =
+                    "move";
+                }}
+                onDrop={(event) => {
+                  event.preventDefault();
 
-      const taskId = Number(
-        event.dataTransfer.getData("taskId")
-      );
+                  const taskId = Number(
+                    event.dataTransfer.getData(
+                      "taskId"
+                    )
+                  );
 
-      handleDropTask(taskId, "Completed");
-    }}
-  >
-    <span className="drop-zone-icon">
-      ✅
-    </span>
+                  handleDropTask(
+                    taskId,
+                    "Pending"
+                  );
+                }}
+              >
 
-    <div>
-      <strong>Completed</strong>
-      <p>Drop task here</p>
-    </div>
-  </div>
+                <span className="drop-zone-icon">
+                  📋
+                </span>
 
-</div>
+                <div>
+
+                  <strong>
+                    Pending
+                  </strong>
+
+                  <p>
+                    Drop task here
+                  </p>
+
+                </div>
+
+              </div>
+
+              {/* Completed Drop Zone */}
+
+              <div
+                className="drop-zone completed-zone"
+                onDragOver={(event) => {
+                  event.preventDefault();
+
+                  event.dataTransfer.dropEffect =
+                    "move";
+                }}
+                onDrop={(event) => {
+                  event.preventDefault();
+
+                  const taskId = Number(
+                    event.dataTransfer.getData(
+                      "taskId"
+                    )
+                  );
+
+                  handleDropTask(
+                    taskId,
+                    "Completed"
+                  );
+                }}
+              >
+
+                <span className="drop-zone-icon">
+                  ✅
+                </span>
+
+                <div>
+
+                  <strong>
+                    Completed
+                  </strong>
+
+                  <p>
+                    Drop task here
+                  </p>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            {/* Task List */}
+
             <div className="tasks-list">
 
               {filteredTasks.length > 0 ? (
 
-                filteredTasks.map((task) => (
-                  <TaskCard
-  key={task.id}
-  task={task}
-  onEdit={handleEditTask}
-  onDelete={handleDeleteTask}
-  onDropTask={handleDropTask}
-/>
-                ))
+                filteredTasks.map(
+                  (task) => (
+                    <TaskCard
+                      key={task.id}
+                      task={task}
+                      onEdit={
+                        handleEditTask
+                      }
+                      onDelete={
+                        handleDeleteTask
+                      }
+                    />
+                  )
+                )
 
               ) : (
 
                 <div className="no-tasks">
+
                   <div className="no-tasks-icon">
                     🔍
                   </div>
 
-                  <h3>No tasks found</h3>
+                  <h3>
+                    No tasks found
+                  </h3>
 
                   <p>
-                    Try changing your search or filter.
+                    Try changing your
+                    search or filter.
                   </p>
+
                 </div>
 
               )}

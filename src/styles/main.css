@@ -796,3 +796,204 @@ body.dark-mode .drop-zone p {
 body.dark-mode .drag-handle {
   color: #64748B;
 }
+/* ============================= */
+/* DAY 9 - LOGIN */
+/* ============================= */
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: #F1F5F9;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 40px;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.10);
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.login-logo {
+  width: 55px;
+  height: 55px;
+  margin: 0 auto 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 14px;
+
+  background: #4F46E5;
+  color: #FFFFFF;
+
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.login-header h1 {
+  margin: 0 0 8px;
+  color: #0F172A;
+  font-size: 28px;
+}
+
+.login-header p {
+  margin: 0;
+  color: #64748B;
+  font-size: 14px;
+}
+
+.login-card .form-group {
+  margin-bottom: 20px;
+}
+
+.login-card .form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #334155;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.login-card .form-group input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+
+  border: 1px solid #CBD5E1;
+  border-radius: 8px;
+
+  background: #FFFFFF;
+  color: #0F172A;
+
+  font-size: 14px;
+  outline: none;
+}
+
+.login-card .form-group input:focus {
+  border-color: #4F46E5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.10);
+}
+
+.login-button {
+  width: 100%;
+  padding: 13px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #4F46E5;
+  color: #FFFFFF;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.login-button:hover {
+  background: #4338CA;
+  transform: translateY(-1px);
+}
+
+.login-error {
+  margin: -5px 0 15px;
+  padding: 10px 12px;
+
+  border-radius: 7px;
+
+  background: #FEF2F2;
+  color: #DC2626;
+
+  font-size: 13px;
+}
+
+.login-demo {
+  margin: 22px 0 0;
+  text-align: center;
+
+  color: #94A3B8;
+  font-size: 12px;
+}
+
+/* Logout Button */
+
+.logout-button {
+  padding: 9px 14px;
+
+  border: 1px solid #CBD5E1;
+  border-radius: 8px;
+
+  background: #FFFFFF;
+  color: #475569;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.logout-button:hover {
+  border-color: #EF4444;
+  color: #DC2626;
+}
+
+/* Dark Mode Login */
+
+body.dark-mode .login-page {
+  background: #0F172A;
+}
+
+body.dark-mode .login-card {
+  background: #111827;
+  border-color: #1E293B;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.30);
+}
+
+body.dark-mode .login-header h1 {
+  color: #F8FAFC;
+}
+
+body.dark-mode .login-header p {
+  color: #94A3B8;
+}
+
+body.dark-mode .login-card .form-group label {
+  color: #CBD5E1;
+}
+
+body.dark-mode .login-card .form-group input {
+  background: #0F172A;
+  border-color: #334155;
+  color: #F8FAFC;
+}
+
+body.dark-mode .login-card .form-group input::placeholder {
+  color: #64748B;
+}
+
+body.dark-mode .logout-button {
+  background: #1E293B;
+  border-color: #334155;
+  color: #CBD5E1;
+}
+
+body.dark-mode .logout-button:hover {
+  border-color: #EF4444;
+  color: #F87171;
+}
