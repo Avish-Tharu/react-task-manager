@@ -54,7 +54,16 @@ const [showSignUp, setShowSignUp] =
   // TASK STATE
   // ================================
 
-  const [tasks, setTasks] = useState([
+  const [tasks, setTasks] = useState(() => {
+  const savedTasks = localStorage.getItem(
+    "task-manager-tasks"
+  );
+
+  if (savedTasks) {
+    return JSON.parse(savedTasks);
+  }
+
+  return [
     {
       id: 1,
       title: "Complete React Assignment",
@@ -76,8 +85,14 @@ const [showSignUp, setShowSignUp] =
         "Push the latest project changes",
       status: "Pending",
     },
-  ]);
-
+  ];
+});
+useEffect(() => {
+  localStorage.setItem(
+    "task-manager-tasks",
+    JSON.stringify(tasks)
+  );
+}, [tasks]);
   // ================================
   // FORM STATES
   // ================================
