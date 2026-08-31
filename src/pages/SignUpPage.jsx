@@ -1,8 +1,11 @@
 import { useState } from "react";
 
-function LoginPage({ onLogin, onGoToSignUp }) {
+function SignUpPage({ onSignUp, onGoToLogin }) {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] =
+    useState("");
 
   const [error, setError] = useState("");
 
@@ -11,8 +14,13 @@ function LoginPage({ onLogin, onGoToSignUp }) {
 
     setError("");
 
-    if (!email || !password) {
-      setError("Please enter your email and password.");
+    if (
+      !name ||
+      !email ||
+      !password ||
+      !confirmPassword
+    ) {
+      setError("Please fill in all fields.");
       return;
     }
 
@@ -22,33 +30,24 @@ function LoginPage({ onLogin, onGoToSignUp }) {
     }
 
     if (password.length < 6) {
-      setError("Password must contain at least 6 characters.");
+      setError(
+        "Password must contain at least 6 characters."
+      );
       return;
     }
 
-    const savedUser = JSON.parse(
-      localStorage.getItem("task-manager-user") || "null"
-    );
-
-    if (savedUser) {
-      if (
-        email !== savedUser.email ||
-        password !== savedUser.password
-      ) {
-        setError("Incorrect email or password.");
-        return;
-      }
-
-      onLogin(savedUser);
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
       return;
     }
 
     const user = {
-      name: email.split("@")[0],
-      email: email,
+      name,
+      email,
+      password,
     };
 
-    onLogin(user);
+    onSignUp(user);
   };
 
   return (
@@ -62,10 +61,10 @@ function LoginPage({ onLogin, onGoToSignUp }) {
             TM
           </div>
 
-          <h1>Welcome Back</h1>
+          <h1>Create Account</h1>
 
           <p>
-            Sign in to manage your tasks
+            Create your Task Manager account
           </p>
 
         </div>
@@ -74,12 +73,30 @@ function LoginPage({ onLogin, onGoToSignUp }) {
 
           <div className="form-group">
 
-            <label htmlFor="email">
+            <label htmlFor="name">
+              Full Name
+            </label>
+
+            <input
+              id="name"
+              type="text"
+              placeholder="Enter your name"
+              value={name}
+              onChange={(event) =>
+                setName(event.target.value)
+              }
+            />
+
+          </div>
+
+          <div className="form-group">
+
+            <label htmlFor="signup-email">
               Email Address
             </label>
 
             <input
-              id="email"
+              id="signup-email"
               type="email"
               placeholder="Enter your email"
               value={email}
@@ -92,17 +109,37 @@ function LoginPage({ onLogin, onGoToSignUp }) {
 
           <div className="form-group">
 
-            <label htmlFor="password">
+            <label htmlFor="signup-password">
               Password
             </label>
 
             <input
-              id="password"
+              id="signup-password"
               type="password"
-              placeholder="Enter your password"
+              placeholder="Create a password"
               value={password}
               onChange={(event) =>
                 setPassword(event.target.value)
+              }
+            />
+
+          </div>
+
+          <div className="form-group">
+
+            <label htmlFor="confirm-password">
+              Confirm Password
+            </label>
+
+            <input
+              id="confirm-password"
+              type="password"
+              placeholder="Confirm your password"
+              value={confirmPassword}
+              onChange={(event) =>
+                setConfirmPassword(
+                  event.target.value
+                )
               }
             />
 
@@ -118,7 +155,7 @@ function LoginPage({ onLogin, onGoToSignUp }) {
             type="submit"
             className="login-button"
           >
-            Sign In
+            Create Account
           </button>
 
         </form>
@@ -126,21 +163,17 @@ function LoginPage({ onLogin, onGoToSignUp }) {
         <div className="login-switch">
 
           <span>
-            Don't have an account?
+            Already have an account?
           </span>
 
           <button
             type="button"
-            onClick={onGoToSignUp}
+            onClick={onGoToLogin}
           >
-            Create Account
+            Sign In
           </button>
 
         </div>
-
-        <p className="login-demo">
-          Demo authentication — frontend only
-        </p>
 
       </div>
 
@@ -148,4 +181,4 @@ function LoginPage({ onLogin, onGoToSignUp }) {
   );
 }
 
-export default LoginPage;
+export default SignUpPage;

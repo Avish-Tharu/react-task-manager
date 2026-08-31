@@ -2,6 +2,7 @@ function Navbar({
   darkMode,
   onToggleDarkMode,
   onLogout,
+  user,
 }) {
   return (
     <nav className="navbar">
@@ -36,8 +37,8 @@ function Navbar({
           </div>
 
           <span>
-            Tharushi
-          </span>
+  {user?.name || "User"}
+</span>
 
         </div>
 <button

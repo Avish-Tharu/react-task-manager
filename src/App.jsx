@@ -7,7 +7,7 @@ import TaskCard from "./components/TaskCard";
 import AddTaskForm from "./components/AddTaskForm";
 import EditTaskForm from "./components/EditTaskForm";
 import LoginPage from "./pages/LoginPage";
-
+import SignUpPage from "./pages/SignUpPage";
 function App() {
   // ================================
   // DAY 9 - LOGIN STATE
@@ -18,7 +18,8 @@ function App() {
       localStorage.getItem("task-manager-auth") === "true"
     );
   });
-
+const [showSignUp, setShowSignUp] =
+  useState(false);
   // ================================
   // DARK MODE
   // ================================
@@ -191,6 +192,23 @@ function App() {
 
     setIsLoggedIn(true);
   };
+  const handleSignUp = (user) => {
+  localStorage.setItem(
+    "task-manager-user",
+    JSON.stringify(user)
+  );
+
+  setShowSignUp(false);
+
+  setIsLoggedIn(true);
+};
+const handleGoToSignUp = () => {
+  setShowSignUp(true);
+};
+
+const handleGoToLogin = () => {
+  setShowSignUp(false);
+};
 
   // ================================
   // DAY 9 - LOGOUT
@@ -258,12 +276,22 @@ function App() {
   // ================================
 
   if (!isLoggedIn) {
+  if (showSignUp) {
     return (
-      <LoginPage
-        onLogin={handleLogin}
+      <SignUpPage
+        onSignUp={handleSignUp}
+        onGoToLogin={handleGoToLogin}
       />
     );
   }
+
+  return (
+    <LoginPage
+      onLogin={handleLogin}
+      onGoToSignUp={handleGoToSignUp}
+    />
+  );
+}
 
   // ================================
   // DASHBOARD
@@ -273,15 +301,19 @@ function App() {
     <div className="app">
 
       <Navbar
-        darkMode={darkMode}
-        onToggleDarkMode={() =>
-          setDarkMode(
-            (currentMode) =>
-              !currentMode
-          )
-        }
-        onLogout={handleLogout}
-      />
+  darkMode={darkMode}
+  onToggleDarkMode={() =>
+    setDarkMode(
+      (currentMode) => !currentMode
+    )
+  }
+  onLogout={handleLogout}
+  user={JSON.parse(
+    localStorage.getItem(
+      "task-manager-user"
+    ) || "null"
+  )}
+/>
 
       <div className="main-layout">
 

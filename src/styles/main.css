@@ -997,3 +997,46 @@ body.dark-mode .logout-button:hover {
   border-color: #EF4444;
   color: #F87171;
 }
+/* ============================= */
+/* DAY 10 - LOGIN / SIGN UP */
+/* ============================= */
+
+.login-switch {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+
+  margin-top: 22px;
+
+  font-size: 13px;
+  color: #64748B;
+}
+
+.login-switch button {
+  border: none;
+  background: none;
+
+  padding: 0;
+
+  color: #4F46E5;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.login-switch button:hover {
+  text-decoration: underline;
+}
+
+/* Dark Mode */
+
+body.dark-mode .login-switch {
+  color: #94A3B8;
+}
+
+body.dark-mode .login-switch button {
+  color: #818CF8;
+}
