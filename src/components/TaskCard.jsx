@@ -32,15 +32,29 @@ function TaskCard({
           <p>{task.description}</p>
         </div>
 
-        <span
-          className={`task-status ${
-            task.status === "Completed"
-              ? "completed"
-              : "pending"
-          }`}
-        >
-          {task.status}
-        </span>
+        <div className="task-meta">
+
+          {/* Status */}
+          <span
+            className={`task-status ${
+              task.status === "Completed"
+                ? "completed"
+                : "pending"
+            }`}
+          >
+            {task.status}
+          </span>
+
+          {/* Priority */}
+          <span
+            className={`task-priority ${
+              task.priority?.toLowerCase()
+            }`}
+          >
+            {task.priority || "Medium"}
+          </span>
+
+        </div>
 
       </div>
 

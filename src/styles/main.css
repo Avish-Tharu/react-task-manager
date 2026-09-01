@@ -1139,3 +1139,70 @@ body.dark-mode .login-switch button {
   }
 
 }
+/* ========================================
+   DAY 14 - TASK PRIORITY
+   ======================================== */
+
+.task-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.task-priority {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.task-priority.high {
+  background: #FEE2E2;
+  color: #B91C1C;
+}
+
+.task-priority.medium {
+  background: #FEF3C7;
+  color: #92400E;
+}
+
+.task-priority.low {
+  background: #DCFCE7;
+  color: #166534;
+}
+
+
+/* Dark Mode */
+
+body.dark-mode .task-priority.high {
+  background: #450A0A;
+  color: #FCA5A5;
+}
+
+body.dark-mode .task-priority.medium {
+  background: #451A03;
+  color: #FCD34D;
+}
+
+body.dark-mode .task-priority.low {
+  background: #052E16;
+  color: #86EFAC;
+}
+
+
+/* Mobile */
+
+@media (max-width: 480px) {
+
+  .task-meta {
+    gap: 6px;
+  }
+
+  .task-priority,
+  .task-status {
+    font-size: 12px;
+    padding: 5px 9px;
+  }
+
+}

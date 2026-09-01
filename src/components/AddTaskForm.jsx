@@ -4,7 +4,7 @@ function AddTaskForm({ onAddTask, onCancel }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("Pending");
-
+const [priority, setPriority] = useState("Medium");
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -14,11 +14,12 @@ function AddTaskForm({ onAddTask, onCancel }) {
     }
 
     const newTask = {
-      id: Date.now(),
-      title: title.trim(),
-      description: description.trim(),
-      status: status,
-    };
+  id: Date.now(),
+  title: title.trim(),
+  description: description.trim(),
+  status,
+  priority,
+};
 
     onAddTask(newTask);
 
@@ -76,6 +77,22 @@ function AddTaskForm({ onAddTask, onCancel }) {
             value={status}
             onChange={(event) => setStatus(event.target.value)}
           >
+            <div className="form-group">
+
+  <label>Priority</label>
+
+  <select
+    value={priority}
+    onChange={(event) =>
+      setPriority(event.target.value)
+    }
+  >
+    <option value="Low">Low</option>
+    <option value="Medium">Medium</option>
+    <option value="High">High</option>
+  </select>
+
+</div>
             <option value="Pending">Pending</option>
             <option value="Completed">Completed</option>
           </select>

@@ -70,6 +70,7 @@ const [showSignUp, setShowSignUp] =
       description:
         "Build the Task Manager application",
       status: "Pending",
+      priority: "High",
     },
     {
       id: 2,
@@ -77,6 +78,7 @@ const [showSignUp, setShowSignUp] =
       description:
         "Review JavaScript array methods",
       status: "Completed",
+       priority: "Low",
     },
     {
       id: 3,
@@ -84,6 +86,7 @@ const [showSignUp, setShowSignUp] =
       description:
         "Push the latest project changes",
       status: "Pending",
+       priority: "Medium",
     },
   ];
 });
