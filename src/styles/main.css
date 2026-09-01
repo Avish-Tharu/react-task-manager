@@ -401,6 +401,7 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
+  position: relative;
 }
 
 .search-icon {
@@ -1041,4 +1042,100 @@ body.dark-mode .login-switch {
 
 body.dark-mode .login-switch button {
   color: #818CF8;
+}
+/* ========================================
+   DAY 13 - RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 1024px) {
+
+  .dashboard {
+    padding: 30px;
+  }
+
+  .main-layout {
+    gap: 0;
+  }
+
+  .dashboard-header {
+    gap: 15px;
+  }
+
+  .task-controls {
+    flex-wrap: wrap;
+  }
+
+}
+@media (max-width: 768px) {
+
+  .main-layout {
+    flex-direction: column;
+  }
+
+  .dashboard {
+    width: 100%;
+    padding: 24px;
+    box-sizing: border-box;
+  }
+
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .add-task-button {
+    width: 100%;
+  }
+
+  .tasks-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .task-controls {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-box {
+    width: 100%;
+  }
+
+  .search-box input {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .status-filter {
+    width: 100%;
+  }
+
+}
+@media (max-width: 480px) {
+
+  .dashboard {
+    padding: 18px;
+  }
+
+  .dashboard h1 {
+    font-size: 26px;
+  }
+
+  .welcome-text {
+    font-size: 14px;
+  }
+
+  .tasks-section h2 {
+    font-size: 20px;
+  }
+
+  .add-task-button {
+    padding: 11px 16px;
+  }
+
+  .task-controls {
+    gap: 10px;
+  }
+
 }
