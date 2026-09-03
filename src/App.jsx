@@ -307,7 +307,23 @@ const handleGoToLogin = () => {
       (task) =>
         task.status === "Pending"
     ).length;
+const highPriorityTasks =
+  tasks.filter(
+    (task) =>
+      task.priority === "High"
+  ).length;
 
+const mediumPriorityTasks =
+  tasks.filter(
+    (task) =>
+      task.priority === "Medium"
+  ).length;
+
+const lowPriorityTasks =
+  tasks.filter(
+    (task) =>
+      task.priority === "Low"
+  ).length;
   // ================================
   // LOGIN PAGE
   // ================================
@@ -386,10 +402,13 @@ const handleGoToLogin = () => {
           {/* Statistics */}
 
           <TaskStats
-            total={totalTasks}
-            completed={completedTasks}
-            pending={pendingTasks}
-          />
+  total={totalTasks}
+  completed={completedTasks}
+  pending={pendingTasks}
+  highPriority={highPriorityTasks}
+  mediumPriority={mediumPriorityTasks}
+  lowPriority={lowPriorityTasks}
+/>
 
           {/* Add Task Form */}
 
