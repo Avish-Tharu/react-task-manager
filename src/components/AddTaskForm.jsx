@@ -4,7 +4,8 @@ function AddTaskForm({ onAddTask, onCancel }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("Pending");
-const [priority, setPriority] = useState("Medium");
+  const [priority, setPriority] = useState("Medium");
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -14,18 +15,19 @@ const [priority, setPriority] = useState("Medium");
     }
 
     const newTask = {
-  id: Date.now(),
-  title: title.trim(),
-  description: description.trim(),
-  status,
-  priority,
-};
+      id: Date.now(),
+      title: title.trim(),
+      description: description.trim(),
+      status,
+      priority,
+    };
 
     onAddTask(newTask);
 
     setTitle("");
     setDescription("");
     setStatus("Pending");
+    setPriority("Medium");
   };
 
   return (
@@ -43,6 +45,7 @@ const [priority, setPriority] = useState("Medium");
       </div>
 
       <form onSubmit={handleSubmit}>
+        {/* Task Title */}
         <div className="form-group">
           <label htmlFor="title">Task Title</label>
 
@@ -55,6 +58,7 @@ const [priority, setPriority] = useState("Medium");
           />
         </div>
 
+        {/* Description */}
         <div className="form-group">
           <label htmlFor="description">Description</label>
 
@@ -69,6 +73,7 @@ const [priority, setPriority] = useState("Medium");
           />
         </div>
 
+        {/* Status */}
         <div className="form-group">
           <label htmlFor="status">Status</label>
 
@@ -77,27 +82,29 @@ const [priority, setPriority] = useState("Medium");
             value={status}
             onChange={(event) => setStatus(event.target.value)}
           >
-            <div className="form-group">
-
-  <label>Priority</label>
-
-  <select
-    value={priority}
-    onChange={(event) =>
-      setPriority(event.target.value)
-    }
-  >
-    <option value="Low">Low</option>
-    <option value="Medium">Medium</option>
-    <option value="High">High</option>
-  </select>
-
-</div>
             <option value="Pending">Pending</option>
             <option value="Completed">Completed</option>
           </select>
         </div>
 
+        {/* Priority */}
+        <div className="form-group">
+          <label htmlFor="priority">Priority</label>
+
+          <select
+            id="priority"
+            value={priority}
+            onChange={(event) =>
+              setPriority(event.target.value)
+            }
+          >
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+          </select>
+        </div>
+
+        {/* Buttons */}
         <div className="form-actions">
           <button
             type="button"

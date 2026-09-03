@@ -8,6 +8,7 @@ import AddTaskForm from "./components/AddTaskForm";
 import EditTaskForm from "./components/EditTaskForm";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
+
 function App() {
   // ================================
   // DAY 9 - LOGIN STATE
@@ -115,7 +116,7 @@ useEffect(() => {
 
   const [statusFilter, setStatusFilter] =
     useState("All");
-
+const [sortBy, setSortBy] = useState("newest");
   // ================================
   // CREATE TASK
   // ================================
@@ -248,29 +249,47 @@ const handleGoToLogin = () => {
   // SEARCH + FILTER
   // ================================
 
-  const filteredTasks = tasks.filter((task) => {
+  const filteredTasks = tasks
+  .filter((task) => {
     const matchesSearch =
       task.title
         .toLowerCase()
-        .includes(
-          searchTerm.toLowerCase()
-        ) ||
-      task.description
-        .toLowerCase()
-        .includes(
-          searchTerm.toLowerCase()
-        );
+        .includes(searchTerm.toLowerCase());
 
     const matchesStatus =
       statusFilter === "All" ||
       task.status === statusFilter;
 
-    return (
-      matchesSearch &&
-      matchesStatus
-    );
-  });
+    return matchesSearch && matchesStatus;
+  })
+  .sort((a, b) => {
+    if (sortBy === "title") {
+      return a.title.localeCompare(b.title);
+    }
 
+    if (sortBy === "priority") {
+      const priorityOrder = {
+        High: 1,
+        Medium: 2,
+        Low: 3,
+      };
+
+      return (
+        (priorityOrder[a.priority] || 2) -
+        (priorityOrder[b.priority] || 2)
+      );
+    }
+
+    if (sortBy === "status") {
+      return a.status.localeCompare(b.status);
+    }
+
+    if (sortBy === "oldest") {
+      return a.id - b.id;
+    }
+
+    return b.id - a.id;
+  });
   // ================================
   // TASK STATISTICS
   // ================================
@@ -420,6 +439,19 @@ const handleGoToLogin = () => {
               {/* Search + Filter */}
 
               <div className="task-controls">
+                <select
+  className="sort-select"
+  value={sortBy}
+  onChange={(event) =>
+    setSortBy(event.target.value)
+  }
+>
+  <option value="newest">Newest</option>
+  <option value="oldest">Oldest</option>
+  <option value="title">Title A-Z</option>
+  <option value="priority">Priority</option>
+  <option value="status">Status</option>
+</select>
 
                 <div className="search-box">
 
